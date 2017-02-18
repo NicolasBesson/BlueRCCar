@@ -18,7 +18,8 @@
 #include "PCF8574.h"
 
 
-PCF8574::PCF8574()
+PCF8574::PCF8574(): 
+	ucDeviceAddress(PCF8574_ADDRESS_000)
 {
 }
 
@@ -26,14 +27,15 @@ PCF8574::~PCF8574()
 {
 }
 
-void PCF8574::begin()
+void PCF8574::begin(unsigned char ucDeviceAddress)
 {
+	this->ucDeviceAddress = ucDeviceAddress;
 	TinyWireM.begin();
 }
 
 void PCF8574::write(unsigned char data)
 {
-	TinyWireM.beginTransmission(PCF8574_ADD);
+	TinyWireM.beginTransmission(ucDeviceAddress);
 	TinyWireM.send(data);                 // Access Command Register
 	TinyWireM.endTransmission();          // Send to the slave
 }
@@ -42,7 +44,7 @@ unsigned char PCF8574::read()
 {
 	unsigned char data = 0x00;
 
-	TinyWireM.requestFrom(PCF8574_ADD, 1);
+	TinyWireM.requestFrom(ucDeviceAddress, 1);
 	while (TinyWireM.available() == 0);
 	data = TinyWireM.receive();
 

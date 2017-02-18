@@ -38,7 +38,7 @@ RCDriver::~RCDriver()
 
 void RCDriver::begin()
 {
-	gpioExpander.begin();
+	gpioExpander.begin(PCF8574A_ADDRESS_000);
 	gpioExpander.write(CMD_ALL_STOP);
 
 	ucCurrentSate = STATE_STOP;

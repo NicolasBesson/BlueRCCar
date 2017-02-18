@@ -22,8 +22,25 @@
 #include <USI_TWI_Master.h>
 #include <TinyWireM.h>
 
-// Device Address
-#define PCF8574_ADD		0x40
+// Device Addresses
+#define PCF8574_ADDRESS_000		0x20
+#define PCF8574_ADDRESS_001		0x21
+#define PCF8574_ADDRESS_010		0x22
+#define PCF8574_ADDRESS_011		0x23
+#define PCF8574_ADDRESS_100		0x24
+#define PCF8574_ADDRESS_101		0x25
+#define PCF8574_ADDRESS_110		0x26
+#define PCF8574_ADDRESS_111		0x27
+
+#define PCF8574A_ADDRESS_000	0x38
+#define PCF8574A_ADDRESS_001	0x39
+#define PCF8574A_ADDRESS_010	0x3A
+#define PCF8574A_ADDRESS_011	0x3B
+#define PCF8574A_ADDRESS_100	0x3C
+#define PCF8574A_ADDRESS_101	0x3D
+#define PCF8574A_ADDRESS_110	0x3E
+#define PCF8574A_ADDRESS_111	0x3F
+
 
 #define PCF8574_PIO(x) (0x1 << x)
 
@@ -43,9 +60,12 @@ class PCF8574
 public:
 	PCF8574();
 	~PCF8574();
-	void begin();
+	void begin(unsigned char ucDeviceAddress);
 	void write(unsigned char data);
 	unsigned char read();
+
+private:
+	unsigned char ucDeviceAddress;
 };
 
 
