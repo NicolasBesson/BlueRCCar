@@ -135,7 +135,7 @@ void Protocol::command(unsigned char cmd)
 	}
 }
 
-unsigned char Protocol::getSate()
+unsigned char Protocol::getState()
 {
 	return ucState;
 }

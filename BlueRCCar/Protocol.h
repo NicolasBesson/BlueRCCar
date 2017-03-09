@@ -36,6 +36,9 @@
 #define STATE_STOP_ALL_MASK  (STATE_FORWARD | STATE_BACKWARD | STATE_LEFT | STATE_RIGHT | STATE_FRONTLIGHT | STATE_REARLIGHT | STATE_HORN)
 
 
+/// <summary>
+/// Protocol commands
+/// </summary>
 typedef enum
 {
 	Stop = 'S',
@@ -70,20 +73,63 @@ typedef enum
 } PROTOCOL_CMD;
 
 
+/// <summary>
+/// Protocol parser
+/// </summary>
 class Protocol
 {
 public:
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Protocol"/> class.
+	/// </summary>
 	Protocol();
+
+	/// <summary>
+	/// Finalizes an instance of the <see cref="Protocol"/> class.
+	/// </summary>
 	~Protocol();
 
+	/// <summary>
+	/// Received command.
+	/// </summary>
+	/// <param name="cmd">The command value.</param>
 	void command(unsigned char cmd);
-	unsigned char getSate();
+
+	/// <summary>
+	/// Gets the analysed state.
+	/// </summary>
+	/// <returns></returns>
+	unsigned char getState();
+
+	/// <summary>
+	/// Gets the speed.
+	/// </summary>
+	/// <returns>Speed</returns>
 	unsigned char getSpeed();
+
+
+	/// <summary>
+	/// Determines whether extra features are enabled.
+	/// </summary>
+	/// <returns>
+	///   <c>true</c> if extra features are enable; otherwise, <c>false</c>.
+	/// </returns>
 	bool isExtraEnabled();
 
 private:
+	/// <summary>
+	/// The extra features
+	/// </summary>
 	bool bExtraEnabled;
+
+	/// <summary>
+	/// The device state
+	/// </summary>
 	unsigned char ucState;
+
+	/// <summary>
+	/// The speed
+	/// </summary>
 	unsigned char ucSpeed;
 };
 

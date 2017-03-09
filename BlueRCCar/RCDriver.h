@@ -24,23 +24,66 @@
 #define SPEED_MIN		  0
 #define SPEED_MAX		100
 
+/// <summary>
+/// Racing Card Driver class
+/// </summary>
 class RCDriver
 {
 public:
+	/// <summary>
+	/// Initializes a new instance of the <see cref="RCDriver"/> class.
+	/// </summary>
 	RCDriver();
+
+	/// <summary>
+	/// Finalizes an instance of the <see cref="RCDriver"/> class.
+	/// </summary>
 	~RCDriver();
 
+	/// <summary>
+	/// Begins this instance.
+	/// </summary>
 	void begin();
+
+	/// <summary>
+	/// Runs this instance.
+	/// Used to update the 
+	/// </summary>
 	void run();
+
+	/// <summary>
+	/// Sets the RC state.
+	/// </summary>
+	/// <param name="ucState">New state of the RC.</param>
 	void setState(unsigned char ucState);
+
+	/// <summary>
+	/// Sets the RC speed.
+	/// </summary>
+	/// <param name="ucSpeed">The RC speed.</param>
 	void setSpeed(unsigned char ucSpeed);
+
+	/// <summary>
+	/// Enables the extra feature
+	/// </summary>
+	/// <param name="bExtraEnable">if set to <c>true</c> [enable the extrat features].</param>
 	void enableExtra(bool bExtraEnable);
 
 private:
+	/// <summary>
+	/// The gpio expander device
+	/// </summary>
 	PCF8574 gpioExpander;
-	unsigned char ucCurrentSate;
-	unsigned char ucSpeed;
 
+	/// <summary>
+	/// The RC current state
+	/// </summary>
+	unsigned char ucCurrentSate;
+	
+	/// <summary>
+	/// The RC speed
+	/// </summary>
+	unsigned char ucSpeed;
 };
 
 #endif // _RCDRIVER_H

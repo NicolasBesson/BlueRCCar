@@ -57,19 +57,14 @@ void loop()
 {
 	int data = 0x00;
 
-	// Get
-	if (digitalRead(PIN_BLUETOOTH_STATE) == LOW)
-	{
-		bluetoothProtocol.command(Stop_All);
-	}
 	// Data available from Bluetooth Serial
-	else if (bluetoothSerial.available() > 0)
+	if (bluetoothSerial.available() > 0)
 	{
 		// Read the data
 		data = bluetoothSerial.read();
 
 		// Decode the protocol
-		bluetoothProtocol.command(data);
+		bluetoothProtocol.command((unsigned char)data);
 	}
 	else
 	{
@@ -77,7 +72,7 @@ void loop()
 	}
 
 	// Update driver based on received protocol
-	rcDriver.setState(bluetoothProtocol.getSate());
+	rcDriver.setState(bluetoothProtocol.getState());
 	rcDriver.enableExtra(bluetoothProtocol.isExtraEnabled());
 	rcDriver.setSpeed(bluetoothProtocol.getSpeed());
 

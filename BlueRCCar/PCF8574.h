@@ -55,16 +55,44 @@
 
 #define PCF8574_PIO_MASK(x) (x)
 
+/// <summary>
+/// PCF8574 device manager
+/// </summary>
 class PCF8574
 {
 public:
+	/// <summary>
+	/// Initializes a new instance of the <see cref="PCF8574"/> class.
+	/// </summary>
 	PCF8574();
+
+	/// <summary>
+	/// Finalizes an instance of the <see cref="PCF8574"/> class.
+	/// </summary>
 	~PCF8574();
+
+	/// <summary>
+	/// Begins with the specified device address.
+	/// </summary>
+	/// <param name="ucDeviceAddress">The device address.</param>
 	void begin(unsigned char ucDeviceAddress);
+
+	/// <summary>
+	/// Writes device PIOs.
+	/// </summary>
+	/// <param name="data">The device PIO States</param>
 	void write(unsigned char data);
+
+	/// <summary>
+	/// Reads device PIOs.
+	/// </summary>
+	/// <returns>Device PIO States</returns>
 	unsigned char read();
 
 private:
+	/// <summary>
+	/// The device address
+	/// </summary>
 	unsigned char ucDeviceAddress;
 };
 
