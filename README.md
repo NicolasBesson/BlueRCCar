@@ -7,13 +7,13 @@ The BlueRCCar système has been mounted on a Nikko Lazer 3.
 ![Nikko Lazer 3](/Pictures/NikkoLazer3.jpg "Nikko Lazer 3")
 
 # Device Usage
-Thsystem make the RC Car addressable via Bluetooth through an SPP profile using a really simplistic bidirectional protocol.
+Thsystem make the RC Car addressable via Bluetooth through an SPP (Serial Port Profile) profile using a really simplistic bidirectional protocol.
 
 ## Commands
 The protocol is composed of Ascii commands that have the following meaning :
 
-       Command      | Value |     |        Command      | Value 
-------------------- | ----: | --- | ------------------- | ----:
+ Command | Value |  | Command | Value
+------------------- | ----- | --- | ------------------- | -----
 Forward             | F     |     | Extra ON            | X
 Backward            | B     |     | Extra OFF           | x
 Left                | L     |     | Speed 0             | 0
@@ -41,7 +41,10 @@ The supported protocol is compatbile with an existing Android application called
 
 
 # Building the Hardware
-The hardware is minimalistic as
+The RC Car electronic already in place is composed of two main parts, the RF Receiver that translate RF Commandes into electric commands, and the motor commands through an H-Bridge.
+The system is replacing the Radio Receiver, by translating Bluetooth commands into electric commands. The system is composed of three parts, the Bluetooth receiver with a USART bus, the ATtiny 85 that translates the commands and drive the last element, the GPIO Expander onto I2C Bus.
+
+![Schematic](/Hardware/BlueRCCar_schem.png "Schematic")
 
 # Building the Software
 The ATtiny 85 is a really cool Micro Controller that have 8 KB of Flash and 512 B of RAM to run any kind of C or C++ software. This gives some space to run a simple software and for this reason some optimization are required.
@@ -51,11 +54,11 @@ The project has been developed in C++ (C++11) in order to reuse and give more fl
 Before starting some tools are required :
 
 * [Arduino IDE](https://www.arduino.cc/en/Main/Software)
-* Visual Studio 2015 Community Edition (and other flavors)
+* Visual Studio 2015 or 2017 Community Edition (and other flavors)
 * [VisualMicro](http://www.visualmicro.com/) a Visual Studio plugin for Arduino development
 * USBTinyISP programer
 
-Install Visual Studio 2015, and make sure to select the support for C++ (Visual C++) during installation.
+Install Visual Studio 2015 or 2017, and make sure to select the support for C++ (Visual C++) during installation.
 
 Install the Arduino IDE application, and launch the application. You first need to add the support of the ATtiny familly as by default only Arduino based platforms are supported. From the File menu, select the Preferences submenu, and then find the “Additional Boards Manager URLs” field near the bottom of the dialog. Add the following url : https://raw.githubusercontent.com/damellis/attiny/ide-1.6.x-boards-manager/package_damellis_attiny_index.json
 You can then validate and close the preferences dialog box. Then from the Tools menu you have to :
