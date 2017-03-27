@@ -18,9 +18,11 @@
 #include "RCDriver.h"
 #include "Protocol.h"
 
+// RC Commands Electrical Logic
+// Forward Active Low
+// Backward Active Low
 
 // RC Commands
-#define CMD_ALL_STOP		0x00
 #define CMD_FORWARD			PCF8574_PIO_0
 #define CMD_BACKWARD		PCF8574_PIO_1
 #define CMD_LEFT			PCF8574_PIO_2
@@ -28,6 +30,7 @@
 #define CMD_FRONT_LIGHT		PCF8574_PIO_4
 #define CMD_REAR_LIGHT		PCF8574_PIO_5
 #define CMD_HORN			PCF8574_PIO_6
+#define CMD_ALL_STOP		(0x00 | CMD_FORWARD | CMD_BACKWARD)
 
 
 RCDriver::RCDriver()
@@ -60,14 +63,18 @@ void RCDriver::setState(unsigned char ucState)
 		return;
 	}
 
-	// Exclusively handle Forward and Backward
+	// Exclusively handle Forward and Backward (Inverted logic)
 	if (ucState & STATE_FORWARD)
 	{
-		ucCommand |= CMD_FORWARD;
+		// Set Forward and Clear Backward (inverted logic)
+		ucCommand &= ~CMD_FORWARD;
+		ucCommand |= CMD_BACKWARD;
 	} 
 	else if (ucState & STATE_BACKWARD)
 	{
-		ucCommand |= CMD_BACKWARD;
+		// Clear Forward and Set Backward (inverted logic)
+		ucCommand |= CMD_FORWARD;
+		ucCommand &= ~CMD_BACKWARD;
 	}
 
 	// Exclusively handle Left and Right
