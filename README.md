@@ -123,6 +123,11 @@ You need to wire the programmer as following:
 
 # Assembling
 
+## Original RF Main board
+
+![RF Main Board interface](/Pictures/NikkoLazer3_MainBoard_Connection.jpg "RF Main Board interface")
+
+
 
 # Revision History
 ## V1.0 - 2017-xx-xx
