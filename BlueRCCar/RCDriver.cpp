@@ -21,6 +21,8 @@
 // RC Commands Electrical Logic
 // Forward Active Low
 // Backward Active Low
+// Left Active Low
+// Right Active Low
 
 // RC Commands
 #define CMD_FORWARD			PCF8574_PIO_0
@@ -30,7 +32,7 @@
 #define CMD_FRONT_LIGHT		PCF8574_PIO_4
 #define CMD_REAR_LIGHT		PCF8574_PIO_5
 #define CMD_HORN			PCF8574_PIO_6
-#define CMD_ALL_STOP		(0x00 | CMD_FORWARD | CMD_BACKWARD)
+#define CMD_ALL_STOP		(0x00 | CMD_FORWARD | CMD_BACKWARD | CMD_LEFT | CMD_RIGHT)
 
 
 RCDriver::RCDriver()
@@ -77,23 +79,28 @@ void RCDriver::setState(unsigned char ucState)
 		ucCommand &= ~CMD_BACKWARD;
 	}
 
-	// Exclusively handle Left and Right
+	// Exclusively handle Left and Right (inverted logic)
 	if (ucState & STATE_LEFT)
 	{
-		ucCommand |= CMD_LEFT;
+		// Set Left and Clear Right (inverted logic)
+		ucCommand &= ~CMD_LEFT;
+		ucCommand |= CMD_RIGHT;
+
 	}
 	else if (ucState & STATE_RIGHT)
 	{
-		ucCommand |= CMD_RIGHT;
+		// Clear Left and Set Right (inverted logic)
+		ucCommand |= CMD_LEFT;
+		ucCommand &= ~CMD_RIGHT;
 	}
 
-	// Handle Front Ligth
+	// Handle Front Light
 	if (ucState & STATE_FRONTLIGHT)
 	{
 		ucCommand |= CMD_FRONT_LIGHT;
 	}
 
-	// Handle Rear Ligth
+	// Handle Rear Light
 	if (ucState & STATE_REARLIGHT)
 	{
 		ucCommand |= CMD_REAR_LIGHT;
