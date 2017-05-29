@@ -34,6 +34,12 @@
 #define CMD_HORN			PCF8574_PIO_6
 #define CMD_ALL_STOP		(0x00 | CMD_FORWARD | CMD_BACKWARD | CMD_LEFT | CMD_RIGHT)
 
+// Helper Macro
+#define SET_BIT(variable, mask) 		variable |= mask
+#define CLR_BIT(variable, mask) 		variable &= ~mask
+#define SET_BIT_INV(variable, mask) 	variable &= ~mask
+#define CLR_BIT_INV(variable, mask) 	variable |= mask
+
 
 RCDriver::RCDriver()
 {}
@@ -69,47 +75,47 @@ void RCDriver::setState(unsigned char ucState)
 	if (ucState & STATE_FORWARD)
 	{
 		// Set Forward and Clear Backward (inverted logic)
-		ucCommand &= ~CMD_FORWARD;
-		ucCommand |= CMD_BACKWARD;
+		SET_BIT_INV(ucCommand, CMD_FORWARD);
+		CLR_BIT_INV(ucCommand, CMD_BACKWARD);
 	} 
 	else if (ucState & STATE_BACKWARD)
 	{
 		// Clear Forward and Set Backward (inverted logic)
-		ucCommand |= CMD_FORWARD;
-		ucCommand &= ~CMD_BACKWARD;
+		CLR_BIT_INV(ucCommand, CMD_FORWARD);
+		SET_BIT_INV(ucCommand, CMD_BACKWARD);
 	}
 
 	// Exclusively handle Left and Right (inverted logic)
 	if (ucState & STATE_LEFT)
 	{
 		// Set Left and Clear Right (inverted logic)
-		ucCommand &= ~CMD_LEFT;
-		ucCommand |= CMD_RIGHT;
+		SET_BIT_INV(ucCommand, CMD_LEFT);
+		CLR_BIT_INV(ucCommand, CMD_RIGHT);
 
 	}
 	else if (ucState & STATE_RIGHT)
 	{
 		// Clear Left and Set Right (inverted logic)
-		ucCommand |= CMD_LEFT;
-		ucCommand &= ~CMD_RIGHT;
+		CLR_BIT_INV(ucCommand, CMD_LEFT);
+		SET_BIT_INV(ucCommand, CMD_RIGHT);
 	}
 
 	// Handle Front Light
 	if (ucState & STATE_FRONTLIGHT)
 	{
-		ucCommand |= CMD_FRONT_LIGHT;
+		SET_BIT(ucCommand, CMD_FRONT_LIGHT);
 	}
 
 	// Handle Rear Light
 	if (ucState & STATE_REARLIGHT)
 	{
-		ucCommand |= CMD_REAR_LIGHT;
+		SET_BIT(ucCommand, CMD_REAR_LIGHT);
 	}
 
 	// Handle Horn
 	if (ucState & STATE_HORN)
 	{
-		ucCommand |= CMD_HORN;
+		SET_BIT(ucCommand, CMD_HORN);
 	}
 
 	// Update 
