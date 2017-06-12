@@ -4,7 +4,7 @@ The addition of Bluetooth on the RC Car makes it compatible with most of the Sma
 
 The BlueRCCar system has been mounted on a Nikko Lazer 3.
 
-![Nikko Lazer 3](/Pictures/NikkoLazer3.jpg "Nikko Lazer 3")
+![Nikko Lazer 3](Pictures/NikkoLazer3.jpg "Nikko Lazer 3")
 
 # Device Usage
 The system makes the RC Car addressable via Bluetooth through an SPP (Serial Port Profile) profile using a really simplistic bidirectional protocol.
@@ -34,13 +34,13 @@ Horn OFF            | v     |     |                     |
 The supported protocol is compatible with an existing Android application called **Arduino Bluetooth RC Car** developed by 'Andi.Co'. It is a free application and working on Android 2.3.3 and above.
 
 ## User Interface
-![Bluetooth RC Interface](/Pictures/BluetoothRCAppInterface.png "Bluetooth RC Interface")
+![Bluetooth RC Interface](Pictures/BluetoothRCAppInterface.png "Bluetooth RC Interface")
 
 # Building the Hardware
 The RC Car electronic already in place is composed of two main parts, the RF Receiver that translate RF Commands into electric commands, and the motor commands through an H-Bridge.
 The system is replacing the Radio Receiver, by translating Bluetooth commands into electric commands. The system is composed of three parts, the Bluetooth receiver with a USART bus, the ATtiny 85 that translates the commands and drive the last element, the GPIO Expander onto an I2C Bus.
 
-![Schematic](/Hardware/BlueRCCar_schem.png "Schematic")
+![Schematic](Hardware/BlueRCCar_schem.png "Schematic")
 
 # Building the Software
 The ATtiny 85 is a really cool Micro Controller that have 8 KB of Flash and 512 B of RAM to run any kind of C or C++ software. This gives some space to run a simple software and for this reason some optimization are required.
@@ -111,17 +111,17 @@ Then you are ready to program your ATtiny 85.
 ## Programming
 The ATtiny 85 micro controller can be programmed using the USBTinyISP programmer. The programmer is visible through a serial com port. You need to identify the associate port index (using Windows Device Manager) in order configure the Visual Micro plugin. 
 
-![USB Tiny ISP](/Pictures/USBtinyISP.jpg "USB Tiny ISP")
+![USB Tiny ISP](Pictures/USBtinyISP.jpg "USB Tiny ISP")
 
 You need to wire the programmer as following:
 
-![USB Tiny ISP with ATtiny85](/Pictures/USBtinyISP_attiny85_connection.png "USB Tiny ISP with ATtiny85")
+![USB Tiny ISP with ATtiny85](Pictures/USBtinyISP_attiny85_connection.png "USB Tiny ISP with ATtiny85")
 
 # Assembling
 
 ## Original RF Main board
 
-![RF Main Board interface](/Pictures/NikkoLazer3_MainBoard_Connection.jpg "RF Main Board interface")
+![RF Main Board interface](Pictures/NikkoLazer3_MainBoard_Connection.jpg "RF Main Board interface")
 
 # Revision History
 ## V1.0 - 2017-06-10
