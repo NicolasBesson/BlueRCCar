@@ -42,6 +42,8 @@ The system is replacing the Radio Receiver, by translating Bluetooth commands in
 
 ![Schematic](/Hardware/BlueRCCar_schem.png "Schematic")
 
+The numeric part of the system, as shown in the schematic above, have its own 5V power supply, which make it independant from the RC Car power supply. This ensure that the Bluetooth receiver and the commands are staying operational when the motor consumption increase and device battery voltage drop down, due to battery current capacity limitation.
+
 # Building the Software
 The ATtiny 85 is a really cool Micro Controller that have 8 KB of Flash and 512 B of RAM to run any kind of C or C++ software. This gives some space to run a simple software and for this reason some optimization are required.
 The project has been developed in C++ (C++11) in order to reuse and give more flexibility in case of development of new features. It is required to use the VisualMicro extension for Visual Studio 2015 in order to build the project.
